@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">JetTimer</string>
+    <string name="start">Start</string>
+    <string name="restart">Restart</string>
+</resources>
