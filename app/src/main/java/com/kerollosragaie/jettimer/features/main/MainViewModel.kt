@@ -30,7 +30,6 @@ class MainViewModel : ViewModel() {
             }
         }
 
-
     fun startTimer() {
         if (_isTimerRunning.value) {
             resetTimer()

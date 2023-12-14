@@ -10,14 +10,11 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.DisposableEffect
-import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
-import com.google.accompanist.systemuicontroller.rememberSystemUiController
 import com.kerollosragaie.jettimer.features.main.components.TimerItem
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -25,13 +22,8 @@ import com.kerollosragaie.jettimer.features.main.components.TimerItem
 fun MainScreen(
     mainViewModel: MainViewModel,
 ) {
-    val systemUiController = rememberSystemUiController()
     val currentTime by mainViewModel.currentTime.collectAsState()
     val isTimerRunning by mainViewModel.isTimerRunning.collectAsState()
-
-    LaunchedEffect(systemUiController) {
-        systemUiController.isStatusBarVisible = false
-    }
 
     Scaffold(
         topBar = {
