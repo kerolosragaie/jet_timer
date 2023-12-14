@@ -50,7 +50,7 @@ import com.kerollosragaie.jettimer.core.utils.getFormattedTime
 import com.kerollosragaie.jettimer.features.main.MainViewModel.Companion.totalTime
 
 
-const val TIMER_RADIUS = 300f
+private const val TIMER_RADIUS = 300f
 
 @Composable
 fun TimerItem(
@@ -59,7 +59,6 @@ fun TimerItem(
     onStart: () -> Unit,
     onReStart: () -> Unit,
 ) {
-
     val transition = updateTransition(targetState = currentTimer, label = null)
 
     val tran by transition.animateFloat(
@@ -97,17 +96,17 @@ fun TimerItem(
             progress,
             currentTimer,
         )
-
     }
-
-
 }
 
 
 @OptIn(ExperimentalAnimationApi::class)
 @Composable
 private fun TimerProgressIndicator(progress: Float, currentTime: Long) {
-    Box(contentAlignment = Alignment.Center, modifier = Modifier.fillMaxWidth()) {
+    Box(
+        contentAlignment = Alignment.Center,
+        modifier = Modifier.fillMaxWidth(),
+    ) {
         CircularIndicator(progress = progress)
         AnimatedContent(
             targetState = currentTime,
@@ -135,13 +134,14 @@ private fun TimerProgressIndicator(progress: Float, currentTime: Long) {
 
 @Composable
 private fun CircularIndicator(progress: Float) {
+    val stroke = with(LocalDensity.current) {
+        Stroke(
+            width = 30.dp.toPx(),
+            cap = StrokeCap.Round
+        )
+    }
+
     Surface(color = MaterialTheme.colorScheme.background) {
-        val stroke = with(LocalDensity.current) {
-            Stroke(
-                width = 30.dp.toPx(),
-                cap = StrokeCap.Round
-            )
-        }
         Canvas(
             modifier = Modifier
                 .fillMaxWidth()
@@ -161,8 +161,8 @@ private fun CircularIndicator(progress: Float) {
                 )
                 drawProgressIndicator(
                     brush = gradient,
-                    progress,
-                    stroke
+                    progress = progress,
+                    stroke = stroke,
                 )
             }
         }
@@ -179,9 +179,10 @@ private fun DrawScope.drawProgressIndicator(
     val halfSize = size / 2.0f
     val topLeft = Offset(
         x = halfSize.width - innerRadius,
-        y = halfSize.height - innerRadius
+        y = halfSize.height - innerRadius,
     )
     val size = Size(innerRadius * 2, innerRadius * 2)
+
     drawArc(
         brush = brush,
         startAngle = 270f,
@@ -198,8 +199,8 @@ private fun DrawScope.drawProgressIndicator(
 @Composable
 fun PrevTimer() {
     TimerItem(
-        currentTimer = 2000L,
-        isRunning = false,
+        currentTimer = 20000L,
+        isRunning = true,
         onStart = {},
         onReStart = {},
     )
